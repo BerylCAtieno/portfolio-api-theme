@@ -9,7 +9,7 @@ function Home() {
         </h1>
         <p className="title">Backend Developer</p>
         <p className="description">
-          I specialize in <span className="highlight">API design and development</span> 
+          I specialize in <span className="highlight">API design and development </span> 
           using Go and TypeScript, crafting robust and scalable backend systems. 
           I'm passionate about <span className="highlight">open source projects</span> 
           and believe in building software that makes a difference.

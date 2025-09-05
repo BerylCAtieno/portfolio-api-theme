@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/useTheme.js";
+import '../css/home.css'
 
 function Header() {
 
@@ -8,10 +9,10 @@ function Header() {
   return (
     <header className="header">
       <nav className="nav">
-        <Link to="/about" className="endpoint">GET /about</Link>
-        <Link to="/projects" className="endpoint">GET /projects</Link>
-        <Link to="/opensource" className="endpoint">GET /open-source</Link>
-        <Link to="/contact" className="endpoint">POST /contact</Link>
+  <Link to="/about" className="endpoint">GET /about</Link>
+  <Link to="/projects" className="endpoint">GET /projects</Link>
+  <Link to="/opensource" className="endpoint">GET /opensource</Link>
+  <Link to="/contact" className="endpoint">POST /contact</Link>
       </nav>
 
       <div className="theme-toggle">

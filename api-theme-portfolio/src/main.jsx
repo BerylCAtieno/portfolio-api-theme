@@ -12,14 +12,7 @@ import './css/index.css';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}/>
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/opensource" element={<OpenSource />} />
-      </Routes>
+      <App />
     </BrowserRouter>
   </React.StrictMode>
 );
