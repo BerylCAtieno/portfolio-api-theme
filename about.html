@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET /about - Beryl Atieno</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #fafafa;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #525252;
+            --text-accent: #404040;
+            --border: #e5e5e5;
+            --hover-bg: #f5f5f5;
+            --shadow: rgba(0, 0, 0, 0.05);
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a3a3a3;
+            --text-accent: #d4d4d4;
+            --border: #262626;
+            --hover-bg: #171717;
+            --shadow: rgba(255, 255, 255, 0.05);
+            --success: #16a34a;
+            --warning: #d97706;
+            --info: #2563eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .nav {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .endpoint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background-color: var(--bg-secondary);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .endpoint:hover {
+            color: var(--text-primary);
+            background-color: var(--hover-bg);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .endpoint.active {
+            color: var(--text-primary);
+            background-color: var(--hover-bg);
+            border-color: var(--text-accent);
+        }
+
+        .endpoint::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .endpoint:hover::before {
+            left: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background-color: var(--bg-secondary);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-toggle:hover {
+            color: var(--text-primary);
+            background-color: var(--hover-bg);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 8px 24px var(--shadow);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu .endpoint {
+            display: block;
+            width: 100%;
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .mobile-menu .endpoint:last-child {
+            border-bottom: none;
+            border-radius: 0 0 6px 6px;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-left: 1rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background-color: var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--bg-secondary);
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        [data-theme="dark"] .toggle-switch::after {
+            transform: translateX(26px);
+        }
+
+        .toggle-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .main {
+            flex: 1;
+            padding: 3rem 0;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .page-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .response-container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .response-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .status-code {
+            color: var(--success);
+        }
+
+        .content-grid {
+            display: grid;
+            gap: 2.5rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--text-accent);
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            color: var(--text-secondary);
+        }
+
+        .section-title::after {
+            content: '":';
+            color: var(--text-secondary);
+        }
+
+        .section-content {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-left: 1rem;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tech-category {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .tech-category:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        .tech-category-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+        }
+
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-item {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .highlight {
+            color: var(--text-accent);
+            font-weight: 500;
+        }
+
+        .experience-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .experience-title {
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .experience-duration {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .experience-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Tablet styles */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .nav {
+                gap: 0.4rem;
+            }
+
+            .endpoint {
+                font-size: 0.85rem;
+                padding: 0.45rem 0.9rem;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .header {
+                padding: 1.5rem 0;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .main {
+                padding: 2rem 0;
+            }
+
+            .page-header {
+                margin-bottom: 2rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .response-container {
+                padding: 1.5rem;
+            }
+
+            .tech-stack {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .theme-toggle {
+                margin-left: 0.5rem;
+            }
+        }
+
+        /* Small mobile styles */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            .header {
+                padding: 1rem 0;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .response-container {
+                padding: 1rem;
+            }
+
+            .section-content {
+                margin-left: 0.5rem;
+            }
+
+            .tech-category {
+                padding: 1rem;
+            }
+
+            .menu-toggle {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .theme-toggle {
+                margin-left: 0.25rem;
+            }
+
+            .toggle-label {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <nav class="nav">
+                <a href="/" class="endpoint">GET /</a>
+                <a href="/about" class="endpoint active">GET /about</a>
+                <a href="/projects" class="endpoint">GET /projects</a>
+                <a href="/opensource" class="endpoint">GET /opensource</a>
+                <a href="/contact" class="endpoint">POST /contact</a>
+            </nav>
+            
+            <div class="menu-toggle" onclick="toggleMenu()">GET /menu</div>
+            
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="/" class="endpoint">GET /</a>
+                <a href="/about" class="endpoint active">GET /about</a>
+                <a href="/projects" class="endpoint">GET /projects</a>
+                <a href="/opensource" class="endpoint">GET /opensource</a>
+                <a href="/contact" class="endpoint">POST /contact</a>
+            </div>
+            
+            <div class="theme-toggle">
+                <span class="toggle-label">theme</span>
+                <div class="toggle-switch" onclick="toggleTheme()"></div>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="page-header">
+                <h1 class="page-title">GET /about</h1>
+                <p class="page-subtitle">Detailed information about the developer</p>
+            </div>
+
+            <div class="response-container">
+                <div class="response-header">
+                    HTTP/1.1 <span class="status-code">200 OK</span><br>
+                    Content-Type: application/json<br>
+                    Cache-Control: public, max-age=3600
+                </div>
+
+                <div class="content-grid">
+                    <div class="section">
+                        <div class="section-title">overview</div>
+                        <div class="section-content">
+                            I'm a passionate backend developer with a deep love for crafting robust, scalable APIs and building systems that power modern applications. My journey in software development is driven by curiosity, continuous learning, and a commitment to writing clean, maintainable code.
+                            <br><br>
+                            With expertise in <span class="highlight">Go and TypeScript</span>, I specialize in designing RESTful APIs, microservices architectures, and database optimization. I believe that great backend development is invisible to users but essential for creating seamless experiences.
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">philosophy</div>
+                        <div class="section-content">
+                            I'm a strong advocate for <span class="highlight">open source development</span> and believe in giving back to the community that has shaped my career. Whether it's contributing to existing projects, maintaining libraries, or sharing knowledge through documentation, I find fulfillment in collaborative problem-solving.
+                            <br><br>
+                            My approach to development emphasizes <span class="highlight">simplicity, performance, and reliability</span>. I prefer solutions that are elegant in their simplicity rather than complex in their cleverness.
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">technical_skills</div>
+                        <div class="section-content">
+                            <div class="tech-stack">
+                                <div class="tech-category">
+                                    <div class="tech-category-title">Languages</div>
+                                    <div class="tech-list">
+                                        <span class="tech-item">Go</span>
+                                        <span class="tech-item">TypeScript</span>
+                                        <span class="tech-item">JavaScript</span>
+                                        <span class="tech-item">Python</span>
+                                        <span class="tech-item">SQL</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="tech-category">
+                                    <div class="tech-category-title">Frameworks & Tools</div>
+                                    <div class="tech-list">
+                                        <span class="tech-item">Gin</span>
+                                        <span class="tech-item">Echo</span>
+                                        <span class="tech-item">Node.js</span>
+                                        <span class="tech-item">Express</span>
+                                        <span class="tech-item">NestJS</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="tech-category">
+                                    <div class="tech-category-title">Databases</div>
+                                    <div class="tech-list">
+                                        <span class="tech-item">PostgreSQL</span>
+                                        <span class="tech-item">MongoDB</span>
+                                        <span class="tech-item">Redis</span>
+                                        <span class="tech-item">MySQL</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="tech-category">
+                                    <div class="tech-category-title">DevOps & Cloud</div>
+                                    <div class="tech-list">
+                                        <span class="tech-item">Docker</span>
+                                        <span class="tech-item">Kubernetes</span>
+                                        <span class="tech-item">AWS</span>
+                                        <span class="tech-item">CI/CD</span>
+                                        <span class="tech-item">Linux</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">experience</div>
+                        <div class="section-content">
+                            <div class="experience-item">
+                                <div class="experience-header">
+                                    <div class="experience-title">Senior Backend Developer</div>
+                                    <div class="experience-duration">2022 - Present</div>
+                                </div>
+                                <div class="experience-description">
+                                    Leading the design and development of scalable microservices architecture serving millions of requests daily. Focused on API optimization, database performance tuning, and implementing robust monitoring systems.
+                                </div>
+                            </div>
+                            
+                            <div class="experience-item">
+                                <div class="experience-header">
+                                    <div class="experience-title">Backend Developer</div>
+                                    <div class="experience-duration">2020 - 2022</div>
+                                </div>
+                                <div class="experience-description">
+                                    Developed and maintained RESTful APIs using Go and Node.js. Collaborated with frontend teams to deliver seamless user experiences while ensuring backend systems remained secure and performant.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">interests</div>
+                        <div class="section-content">
+                            Beyond coding, I'm passionate about <span class="highlight">distributed systems architecture</span>, <span class="highlight">performance optimization</span>, and exploring emerging technologies in the backend space. I enjoy contributing to open source projects, writing technical articles, and mentoring junior developers.
+                            <br><br>
+                            When I'm not coding, you'll find me reading about system design patterns, experimenting with new databases, or contributing to community projects that aim to make development tools more accessible.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!menu.contains(e.target) && !menuToggle.contains(e.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Close mobile menu when clicking on a menu item
+        document.querySelectorAll('.mobile-menu .endpoint').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+            });
+        });
+
+        // Set initial theme based on system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+
+        // Add subtle loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+    </script>
+</body>
+</html>

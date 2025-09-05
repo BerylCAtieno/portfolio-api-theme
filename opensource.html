@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET /opensource - Beryl Atieno</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #fafafa;
+            --bg-secondary: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #525252;
+            --text-accent: #404040;
+            --border: #e5e5e5;
+            --hover-bg: #f5f5f5;
+            --shadow: rgba(0, 0, 0, 0.05);
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --merged: #8b5cf6;
+            --closed: #ef4444;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a3a3a3;
+            --text-accent: #d4d4d4;
+            --border: #262626;
+            --hover-bg: #171717;
+            --shadow: rgba(255, 255, 255, 0.05);
+            --success: #16a34a;
+            --warning: #d97706;
+            --info: #2563eb;
+            --merged: #7c3aed;
+            --closed: #dc2626;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .nav {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .endpoint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background-color: var(--bg-secondary);
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .endpoint:hover {
+            color: var(--text-primary);
+            background-color: var(--hover-bg);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .endpoint.active {
+            color: var(--text-primary);
+            background-color: var(--hover-bg);
+            border-color: var(--text-accent);
+        }
+
+        .endpoint::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .endpoint:hover::before {
+            left: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background-color: var(--bg-secondary);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-toggle:hover {
+            color: var(--text-primary);
+            background-color: var(--hover-bg);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            box-shadow: 0 8px 24px var(--shadow);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu .endpoint {
+            display: block;
+            width: 100%;
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .mobile-menu .endpoint:last-child {
+            border-bottom: none;
+            border-radius: 0 0 6px 6px;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-left: 1rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background-color: var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--bg-secondary);
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        [data-theme="dark"] .toggle-switch::after {
+            transform: translateX(26px);
+        }
+
+        .toggle-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .main {
+            flex: 1;
+            padding: 3rem 0;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .page-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .response-container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .response-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .status-code {
+            color: var(--success);
+        }
+
+        .contributions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contribution {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contribution:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .contribution-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contribution-type {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .contribution-type.pr {
+            background-color: var(--merged);
+            color: white;
+        }
+
+        .contribution-type.issue {
+            background-color: var(--info);
+            color: white;
+        }
+
+        .contribution-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .contribution-status {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .status-merged {
+            background-color: var(--merged);
+            color: white;
+        }
+
+        .status-closed {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .status-open {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .contribution-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .contribution-link {
+            color: var(--info);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .contribution-link:hover {
+            color: var(--text-primary);
+            text-decoration: underline;
+        }
+
+        .contribution-repo {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.75rem;
+        }
+
+        .contribution-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .contribution-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .highlight {
+            color: var(--text-accent);
+            font-weight: 500;
+        }
+
+        .stats-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        .stats-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--text-accent);
+            margin-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .stat-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Tablet styles */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .nav {
+                gap: 0.4rem;
+            }
+
+            .endpoint {
+                font-size: 0.85rem;
+                padding: 0.45rem 0.9rem;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .header {
+                padding: 1.5rem 0;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .main {
+                padding: 2rem 0;
+            }
+
+            .page-header {
+                margin-bottom: 2rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .response-container {
+                padding: 1.5rem;
+            }
+
+            .contribution {
+                padding: 1rem;
+            }
+
+            .contribution-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .contribution-meta {
+                gap: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .theme-toggle {
+                margin-left: 0.5rem;
+            }
+        }
+
+        /* Small mobile styles */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            .header {
+                padding: 1rem 0;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .response-container {
+                padding: 1rem;
+            }
+
+            .contribution {
+                padding: 0.75rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-toggle {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .theme-toggle {
+                margin-left: 0.25rem;
+            }
+
+            .toggle-label {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <nav class="nav">
+                <a href="/" class="endpoint">GET /</a>
+                <a href="/about" class="endpoint">GET /about</a>
+                <a href="/projects" class="endpoint">GET /projects</a>
+                <a href="/opensource" class="endpoint active">GET /opensource</a>
+                <a href="/contact" class="endpoint">POST /contact</a>
+            </nav>
+            
+            <div class="menu-toggle" onclick="toggleMenu()">GET /menu</div>
+            
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="/" class="endpoint">GET /</a>
+                <a href="/about" class="endpoint">GET /about</a>
+                <a href="/projects" class="endpoint">GET /projects</a>
+                <a href="/opensource" class="endpoint active">GET /opensource</a>
+                <a href="/contact" class="endpoint">POST /contact</a>
+            </div>
+            
+            <div class="theme-toggle">
+                <span class="toggle-label">theme</span>
+                <div class="toggle-switch" onclick="toggleTheme()"></div>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="page-header">
+                <h1 class="page-title">GET /opensource</h1>
+                <p class="page-subtitle">Community contributions and open source involvement</p>
+            </div>
+
+            <div class="response-container">
+                <div class="response-header">
+                    HTTP/1.1 <span class="status-code">200 OK</span><br>
+                    Content-Type: application/json<br>
+                    Cache-Control: public, max-age=3600
+                </div>
+
+                <div class="stats-section">
+                    <div class="stats-title">contribution_summary</div>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-number">23</span>
+                            <span class="stat-label">Pull Requests</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">15</span>
+                            <span class="stat-label">Issues Opened</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Repositories</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">142</span>
+                            <span class="stat-label">Commits</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contributions-list">
+                    <div class="contribution">
+                        <div class="contribution-header">
+                            <div class="contribution-type pr">PR</div>
+                            <div class="contribution-number">#2847</div>
+                            <div class="contribution-status status-merged">MERGED</div>
+                        </div>
+                        <div class="contribution-repo">gin-gonic/gin</div>
+                        <h3 class="contribution-title">
+                            <a href="https://github.com/gin-gonic/gin/pull/2847" class="contribution-link" target="_blank">
+                                Add context-aware request timeout middleware
+                            </a>
+                        </h3>
+                        <div class="contribution-description">
+                            Implemented a new middleware that provides configurable request timeouts with proper context cancellation. This enhancement improves the framework's ability to handle long-running requests and prevents resource leaks. The middleware supports custom timeout durations and graceful error handling.
+                        </div>
+                        <div class="contribution-meta">
+                            <div class="meta-item">
+                                <span>Language:</span>
+                                <span class="highlight">Go</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>Lines:</span>
+                                <span class="highlight">+147 -23</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>Files:</span>
+                                <span class="highlight">5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contribution">
+                        <div class="contribution-header">
+                            <div class="contribution-type issue">ISSUE</div>
+                            <div class="contribution-number">#1756</div>
+                            <div class="contribution-status status-closed">CLOSED</div>
+                        </div>
+                        <div class="contribution-repo">fastify/fastify</div>
+                        <h3 class="contribution-title">
+                            <a href="https://github.com/fastify/fastify/issues/1756" class="contribution-link" target="_blank">
+                                Memory leak in request validation with large schemas
+                            </a>
+                        </h3>
+                        <div class="contribution-description">
+                            Identified and reported a memory leak occurring when using large JSON schemas for request validation. The issue was causing significant memory consumption in production environments with high request volumes. Provided detailed reproduction steps, memory profiling data, and suggested potential solutions.
+                        </div>
+                        <div class="contribution-meta">
+                            <div class="meta-item">
+                                <span>Language:</span>
+                                <span class="highlight">TypeScript</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>Impact:</span>
+                                <span class="highlight">High</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>Reproduced:</span>
+                                <span class="highlight">Yes</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contribution">
+                        <div class="contribution-header">
+                            <div class="contribution-type pr">PR</div>
+                            <div class="contribution-number">#892</div>
+                            <div class="contribution-status status-merged">MERGED</div>
+                        </div>
+                        <div class="contribution-repo">labstack/echo</div>
+                        <h3 class="contribution-title">
+                            <a href="https://github.com/labstack/echo/pull/892" class="contribution-link" target="_blank">
+                                Improve JWT middleware performance with token caching
+                            </a>
+                        </h3>
+                        <div class="contribution-description">
+                            Enhanced the JWT middleware by implementing an intelligent caching mechanism for validated tokens. This optimization reduces CPU usage by up to 40% in high-traffic scenarios while maintaining security standards. Added comprehensive tests and benchmarks to demonstrate performance improvements.
+                        </div>
+                        <div class="contribution-meta">
+                            <div class="meta-item">
+                                <span>Language:</span>
+                                <span class="highlight">Go</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>Lines:</span>
+                                <span class="highlight">+89 -12</span>
+                            </div>
+                            <div class="meta-item">
+                                <span>Performance:</span>
+                                <span class="highlight">+40% faster</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('mobileMenu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (!menu.contains(e.target) && !menuToggle.contains(e.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Close mobile menu when clicking on a menu item
+        document.querySelectorAll('.mobile-menu .endpoint').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.remove('active');
+            });
+        });
+
+        // Set initial theme based on system preference
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+
+        // Add subtle loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+    </script>
+</body>
+</html>
