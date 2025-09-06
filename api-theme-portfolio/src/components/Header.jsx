@@ -1,4 +1,4 @@
-import { NavLink, Link } from "react-router-dom";
+import { NavLink} from "react-router-dom";
 import { useTheme } from "../context/useTheme.js";
 import '../css/home.css'
 
@@ -9,7 +9,7 @@ function Header() {
   return (
     <header className="header">
       <nav className="nav">
-        <Link to="/" className="endpoint">GET /</Link>
+        <NavLink to="/" className="endpoint">GET /</NavLink>
         <NavLink to="/about" className="endpoint">GET /about</NavLink>
         <NavLink to="/projects" className="endpoint">GET /projects</NavLink>
         <NavLink to="/opensource" className="endpoint">GET /opensource</NavLink>
