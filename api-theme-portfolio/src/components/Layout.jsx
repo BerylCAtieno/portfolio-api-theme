@@ -4,7 +4,7 @@ import Footer from "./Footer";
 
 function Layout({children}) {
     return (
-    <div className="container">
+    <div className="layout-container">
       <Header />
         <main className="main">{children}</main>
       <Footer />
