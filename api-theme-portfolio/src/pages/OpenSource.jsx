@@ -58,7 +58,7 @@ function OpenSource() {
 
   return (
     <Layout>
-      <div className="opensource-page">
+      <div className="main-page">
         <div className="page-header">
           <h1 className="page-title">GET /opensource</h1>
           <p className="page-subtitle">Community contributions and open source involvement</p>
