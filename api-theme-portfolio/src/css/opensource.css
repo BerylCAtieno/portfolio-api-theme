@@ -1,4 +1,4 @@
-.opensource-page .main {
+.main-page .main {
     flex: 1;
     padding: 3rem 0;
     align-items: flex-start;
@@ -241,7 +241,7 @@
 
 /* Mobile styles */
 @media (max-width: 768px) {
-    .opensource-page .main {
+    .main-page .main {
         padding: 2rem 0;
     }
 
