@@ -195,7 +195,7 @@
         }
 
         .social-links > a > svg:hover {
-            color: var(--text-accent);
+            color: var(--text-secondary);
         }
 
         /* TODO: fix social links theme colors and hover effect */
