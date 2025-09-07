@@ -24,12 +24,6 @@ body {
             position: relative;
         }
 
-        .nav {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
         .endpoint {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
@@ -422,10 +416,6 @@ body {
                 padding: 0 1.5rem;
             }
 
-            .nav {
-                gap: 0.4rem;
-            }
-
             .endpoint {
                 font-size: 0.85rem;
                 padding: 0.45rem 0.9rem;
@@ -450,9 +440,6 @@ body {
                 padding: 1.5rem 0;
             }
 
-            .nav {
-                display: none;
-            }
 
             .menu-toggle {
                 display: block;
