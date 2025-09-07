@@ -8,6 +8,7 @@ function Header() {
 
   return (
     <header className="header">
+      {/* TODO: make the nav links responsive for mobile, add "GET /menu" that works like a humburger menu */}
       <nav className="nav">
         <NavLink to="/" className="endpoint">GET /</NavLink>
         <NavLink to="/about" className="endpoint">GET /about</NavLink>
