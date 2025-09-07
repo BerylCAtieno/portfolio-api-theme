@@ -15,3 +15,4 @@ function Layout({children}) {
 export default Layout
 
 // TODO: fix spacing above and under content
+// TODO: move theme mode, nav bar styling to index.css
