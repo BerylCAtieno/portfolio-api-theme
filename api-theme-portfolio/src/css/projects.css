@@ -163,12 +163,6 @@ body {
             transform: translateX(26px);
         }
 
-        .toggle-label {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
         .main {
             flex: 1;
             padding: 3rem 0;
@@ -522,7 +516,4 @@ body {
                 margin-left: 0.25rem;
             }
 
-            .toggle-label {
-                display: none;
-            }
         }
