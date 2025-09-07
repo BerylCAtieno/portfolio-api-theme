@@ -1,11 +1,11 @@
 import Layout from "../components/Layout"
 
-function About() {
+function Project() {
     return (
         <Layout>
-            <div>About Page Coming Soon</div>
+            <div>Projects Page Coming Soon</div>
         </Layout>
     )
 }
 
-export default About
+export default Project
