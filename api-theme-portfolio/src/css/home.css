@@ -194,6 +194,12 @@
             transition: color 0.3s ease;
         }
 
+        .social-links > a > svg:hover {
+            color: var(--text-accent);
+        }
+
+        /* TODO: fix social links theme colors and hover effect */
+
         .social-links > a > .github {
             color: var(--text-primary);
         }
