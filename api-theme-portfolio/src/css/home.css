@@ -179,6 +179,29 @@
             }
         }
 
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1em;
+            padding: 2em 1em;
+        }
+
+        .social-links > a > svg {
+            width: 2em;
+            height: 2em;
+            vertical-align: middle;
+            transition: color 0.3s ease;
+        }
+
+        .social-links > a > .github {
+            color: var(--text-primary);
+        }
+
+        .social-links > a > .linkedin {
+            color: var(--info);
+        }
+
         .footer {
             padding: 2rem 0;
             border-top: 1px solid var(--border);
