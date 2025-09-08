@@ -6,10 +6,10 @@
     overflow-y: auto;
 }
 .page-header {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     opacity: 0;
     animation: fadeInUp 1s ease 0.2s forwards;
-    padding-top: 4rem;
+    padding-top: 1rem;
 }
 
 .page-title {
