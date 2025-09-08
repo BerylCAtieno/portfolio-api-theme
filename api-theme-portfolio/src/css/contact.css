@@ -357,6 +357,14 @@
                 padding: 0 1rem;
             }
 
+            .contact-container {
+                flex-direction: column;
+                justify-content: center;
+                align-items: stretch;
+                gap: 2em;
+                width: 90vw;
+            }
+
             .header {
                 padding: 1.5rem 0;
             }
@@ -371,9 +379,15 @@
                 font-size: 2rem;
             }
 
+            .form-section {
+                margin: 0;
+                width: 100%;
+            }
+
             .contact-info,
             .contact-form {
                 padding: 1.5rem;
+                width: 100%;
             }
 
             .contact-method {

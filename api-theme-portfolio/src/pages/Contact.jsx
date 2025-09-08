@@ -1,6 +1,7 @@
 import ContactForm from "../components/ContactForm"
 import Layout from "../components/Layout"
 import SocialLinks from "../components/SocialLinks"
+import '../css/contact.css'
 
 function Contact() {
     return (
@@ -17,7 +18,6 @@ function Contact() {
             </div>
         </Layout>
 
-        // TODO: make page responsive
     )
 }
 
