@@ -119,6 +119,72 @@
             color: var(--text-secondary);
         }
 
+        
+        .nav-desktop {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+
+        .nav-mobile {
+            display: none;
+            position: relative;
+        }
+
+        
+        .hamburger-menu {
+            background: none;
+            border: none;
+            cursor: pointer;
+        
+        }
+
+        
+        .nav-dropdown {
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            box-shadow: 0 4px 12px var(--shadow);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            min-width: 200px;
+            overflow: hidden;
+        }
+
+       
+        .nav-dropdown.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+       
+        .nav-dropdown .endpoint {
+            display: block;
+            margin: 0;
+            border-radius: 0;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            transform: none; 
+            box-shadow: none; 
+        }
+
+        .nav-dropdown .endpoint:last-child {
+            border-bottom: none;
+        }
+
+        .nav-dropdown .endpoint:hover {
+            transform: none; 
+            box-shadow: none; 
+        }
+
         .main {
             flex: 1;
             display: flex;
@@ -198,8 +264,6 @@
             color: var(--text-secondary);
         }
 
-        /* TODO: fix social links theme colors and hover effect */
-
         .social-links > a > .github {
             color: var(--text-primary);
         }
@@ -272,4 +336,24 @@
             .theme-toggle {
                 margin-left: 0.5rem;
             }
-        }
+
+            .nav-desktop {
+                display: none;
+            }
+  
+  
+            .nav-mobile {
+                display: block;
+            }
+            
+            .header {
+                flex-wrap: wrap;
+            }
+            }
+
+            @media (max-width: 480px) {
+                .nav-dropdown {
+                    left: -1rem;
+                    right: -1rem;
+                }
+            }
