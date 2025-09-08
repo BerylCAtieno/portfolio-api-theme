@@ -118,3 +118,5 @@ function About() {
 }
 
 export default About
+
+// review content and add appropriate ones

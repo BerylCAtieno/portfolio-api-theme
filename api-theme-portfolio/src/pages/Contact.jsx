@@ -22,3 +22,5 @@ function Contact() {
 }
 
 export default Contact
+
+// make sure messages and all social links work
