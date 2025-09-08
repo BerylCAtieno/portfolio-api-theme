@@ -18,7 +18,7 @@ function Header() {
 
   return (
     <header className="header">
-      {/* TODO: make the nav links responsive for mobile, add "GET /menu" that works like a humburger menu */}
+      
       <nav className="nav">
         {/* Desktop navigation - hidden on mobile */}
         <div className="nav-desktop">
