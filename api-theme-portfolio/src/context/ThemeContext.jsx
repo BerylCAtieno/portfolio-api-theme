@@ -4,10 +4,15 @@ import { ThemeContext } from "./ThemeContext.js";
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState("light");
 
-  // Load system preference on first render
+  // Load saved theme or system preference on first render
   useEffect(() => {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    setTheme(prefersDark ? "dark" : "light");
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setTheme(prefersDark ? "dark" : "light");
+    }
   }, []);
 
   // Apply theme to <html> element
@@ -16,7 +21,11 @@ export function ThemeProvider({ children }) {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    setTheme((prev) => {
+      const newTheme = prev === "dark" ? "light" : "dark";
+      localStorage.setItem("theme", newTheme); // persist choice
+      return newTheme;
+    });
   };
 
   return (
@@ -25,5 +34,3 @@ export function ThemeProvider({ children }) {
     </ThemeContext.Provider>
   );
 }
-
-// useTheme hook moved to useTheme.js
