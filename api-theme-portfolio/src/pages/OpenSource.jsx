@@ -5,35 +5,35 @@ import '../css/opensource.css';
 
 function OpenSource() {
   const statsData = [
-    { number: 23, label: "Pull Requests" },
-    { number: 15, label: "Issues Opened" },
-    { number: 8, label: "Repositories" },
-    { number: 142, label: "Commits" }
+    { number: 8, label: "Pull Requests" },
+    { number: 5, label: "Issues Opened" },
+    { number: 4, label: "Repositories" },
+    { number: 42, label: "Commits" }
   ];
 
   const contributionsData = [
     {
       type: "PR",
-      number: "2847",
+      number: "92",
       status: "MERGED",
-      repo: "gin-gonic/gin",
-      title: "Add context-aware request timeout middleware",
-      url: "https://github.com/gin-gonic/gin/pull/2847",
-      description: "Implemented a new middleware that provides configurable request timeouts with proper context cancellation. This enhancement improves the framework's ability to handle long-running requests and prevents resource leaks. The middleware supports custom timeout durations and graceful error handling.",
+      repo: "open-ug/conveyor",
+      title: "Integrated BadgerDB as Log Storage Backend.",
+      url: "https://github.com/open-ug/conveyor/pull/92",
+      description: "Integrated BadgerDB as the backend for structured log storage in the Conveyor API server. This feature enables persistence in log data, enabling reliable storage and retrieval for better app observability",
       meta: [
         { label: "Language", value: "Go" },
-        { label: "Lines", value: "+147 -23" },
-        { label: "Files", value: "5" }
+        { label: "Lines", value: "+426 -24" },
+        { label: "Files", value: "9" }
       ]
     },
     {
-      type: "ISSUE",
-      number: "1756",
-      status: "CLOSED",
-      repo: "fastify/fastify",
-      title: "Memory leak in request validation with large schemas",
-      url: "https://github.com/fastify/fastify/issues/1756",
-      description: "Identified and reported a memory leak occurring when using large JSON schemas for request validation. The issue was causing significant memory consumption in production environments with high request volumes. Provided detailed reproduction steps, memory profiling data, and suggested potential solutions.",
+      type: "PR",
+      number: "1274",
+      status: "MERGED",
+      repo: "openfn/adaptors",
+      title: "Improve SQL Adaptors",
+      url: "https://github.com/OpenFn/adaptors/pull/1274",
+      description: "Introduced a new function to the MySQL adaptor, matching the signature and behavior of the PostgreSQL adaptor's function. This change improves developer experience by ensuring consistency in the SQL adaptors",
       meta: [
         { label: "Language", value: "TypeScript" },
         { label: "Impact", value: "High" },
@@ -42,16 +42,16 @@ function OpenSource() {
     },
     {
       type: "PR",
-      number: "892",
-      status: "MERGED",
-      repo: "labstack/echo",
-      title: "Improve JWT middleware performance with token caching",
-      url: "https://github.com/labstack/echo/pull/892",
-      description: "Enhanced the JWT middleware by implementing an intelligent caching mechanism for validated tokens. This optimization reduces CPU usage by up to 40% in high-traffic scenarios while maintaining security standards. Added comprehensive tests and benchmarks to demonstrate performance improvements.",
+      number: "33825",
+      status: "OPEN",
+      repo: "mattermost/mattermost",
+      title: "Fix Race Condition when Sending Concurrent Replies",
+      url: "https://github.com/mattermost/mattermost/pull/33825",
+      description: "fixes race condition bug when sending multiple replies to threads. This change ensures system reliability by allowing multiple users to post replies at the same time without risk of errors",
       meta: [
         { label: "Language", value: "Go" },
-        { label: "Lines", value: "+89 -12" },
-        { label: "Performance", value: "+40% faster" }
+        { label: "Lines", value: "+210 -10" },
+        { label: "Bug", value: "Fixed" }
       ]
     }
   ];
@@ -107,4 +107,3 @@ function OpenSource() {
 
 export default OpenSource;
 
-// add real OS contributions
