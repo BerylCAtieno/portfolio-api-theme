@@ -27,7 +27,7 @@ function About() {
             },
             {
                 title: "Frameworks & Tools",
-                items: ["Gin", "Echo", "Node.js", "Express", "NestJS"]
+                items: ["Gin", "Echo", "Node.js", "Express"]
             },
             {
                 title: "Databases",
@@ -41,19 +41,19 @@ function About() {
         
         experience: [
             {
-                title: "Senior Backend Developer",
-                duration: "2022 - Present",
-                description: "Leading the design and development of scalable microservices architecture serving millions of requests daily. Focused on API optimization, database performance tuning, and implementing robust monitoring systems."
+                title: "Backend Developer Intern",
+                duration: "April 2025 – Sept. 2025",
+                description: " Paticipated in the design and development of the backend systems for a real-estate listings app. Focused on API optimization, database performance tuning, and implementing robust authentication systems."
             },
             {
-                title: "Backend Developer",
-                duration: "2020 - 2022",
+                title: "Backend Developer Intern",
+                duration: "Feb 2024 – April 2024",
                 description: "Developed and maintained RESTful APIs using Go and Node.js. Collaborated with frontend teams to deliver seamless user experiences while ensuring backend systems remained secure and performant."
             }
         ],
         
         interests: {
-            content: `Beyond coding, I'm passionate about distributed systems architecture, performance optimization, and exploring emerging technologies in the backend space. I enjoy contributing to open source projects, writing technical articles, and mentoring junior developers.
+            content: `Beyond coding, I'm passionate about distributed systems architecture, performance optimization, and exploring emerging technologies in the backend space. I enjoy contributing to open source projects.
 
                     When I'm not coding, you'll find me reading about system design patterns, experimenting with new databases, or contributing to community projects that aim to make development tools more accessible.`,
             highlights: ["distributed systems architecture", "performance optimization"]
@@ -118,5 +118,3 @@ function About() {
 }
 
 export default About
-
-// review content and add appropriate ones
