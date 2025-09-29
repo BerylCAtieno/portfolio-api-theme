@@ -6,12 +6,12 @@ function Project() {
 
     const projectsData = [
         {
-            title: "TaskFlow API",
-            description: "A high-performance task management API built with Go and PostgreSQL. Features real-time collaboration, advanced querying, and microservices architecture. Handles over 10,000 concurrent users with sub-100ms response times. Includes comprehensive authentication, role-based access control, and automated testing pipeline.",
-            techStack: ["Go", "Gin", "PostgreSQL", "Redis", "Docker", "JWT", "WebSocket"],
-            githubUrl: "https://github.com/berylatieno/taskflow-api",
-            demoUrl: "https://taskflow-api-demo.vercel.app",
-            highlights: ["10,000 concurrent users"],
+            title: "My HomeFinder",
+            description: "A high-performance rental listing app API built with Typescript and PostgreSQL. Features real-time messaging, advanced querying, and a secure authentication system. Handles over 1000 concurrent users with sub-100ms response times. Includes comprehensive authentication, role-based access control, and automated testing pipeline.",
+            techStack: ["Typescript", "Prisma", "PostgreSQL", "Docker", "JWT", "WebSocket"],
+            githubUrl: "https://github.com/Techies-Collab-and-Upskill-Live-Project/my-homefinder-backend",
+            demoUrl: "https://my-homefinder-frontend.onrender.com/",
+            highlights: ["1000 concurrent users"],
             terminalContent: [
                 "$ curl -X GET api.taskflow.dev/v1/projects",
                 "{",
@@ -23,38 +23,6 @@ function Project() {
                 "}"
             ]
         },
-        {
-            title: "Analytics Engine",
-            description: "Real-time analytics platform built with TypeScript and Node.js. Processes millions of events per hour with 99.9% uptime. Features event streaming, custom dashboards, and automated reporting. Implements advanced data aggregation and provides RESTful APIs for third-party integrations.",
-            techStack: ["TypeScript", "Node.js", "NestJS", "MongoDB", "ClickHouse", "Kafka", "AWS"],
-            githubUrl: "https://github.com/berylatieno/analytics-engine",
-            demoUrl: null,
-            highlights: ["99.9% uptime"],
-            terminalContent: [
-                "$ npm run dev",
-                "Server running on http://localhost:3000",
-                "⚡ Real-time analytics started",
-                "📊 Processing 2.3M events/hour",
-                "✅ Database connection established",
-                "🔄 WebSocket server active"
-            ]
-        },
-        {
-            title: "Distributed File Storage",
-            description: "Scalable microservices-based file storage system with automatic replication and load balancing. Built with Go, featuring 99.99% availability and horizontal scaling capabilities. Implements encryption at rest, comprehensive monitoring, and supports multiple storage backends including S3 and local filesystems.",
-            techStack: ["Go", "Echo", "gRPC", "Consul", "MinIO", "Prometheus", "K8s"],
-            githubUrl: "https://github.com/berylatieno/distributed-storage",
-            demoUrl: null, // No demo URL for this project
-            highlights: ["99.99% availability"],
-            terminalContent: [
-                "$ go run main.go",
-                "🔐 Auth service started on :8001",
-                "📦 User service started on :8002",
-                "💾 Storage service started on :8003",
-                "🌐 API Gateway listening on :8000",
-                "✅ All microservices healthy"
-            ]
-        }
     ];
     return (
         <Layout>
