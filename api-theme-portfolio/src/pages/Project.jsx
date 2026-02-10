@@ -28,7 +28,7 @@ function Project() {
         <Layout>
             <div className="opensource-page">
                 <div className="page-header">
-                    <h1 className="page-title">GET /projects</h1>
+                    <h1 className="page-title">Projects</h1>
                     <p className="page-subtitle">Featured backend applications and systems</p>
                 </div>
 

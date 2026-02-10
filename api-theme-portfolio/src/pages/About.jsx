@@ -63,7 +63,7 @@ function About() {
         <Layout>
             <div className="main-page">
                 <div className="page-header">
-                    <h1 className="page-title">GET /about</h1>
+                    <h1 className="page-title">About Me</h1>
                     <p className="page-subtitle">Detailed information about the developer</p>
                 </div>
 
