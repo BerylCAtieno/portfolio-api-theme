@@ -8,7 +8,7 @@ function Contact() {
         <Layout>
             <div className="main-page">
                 <div className="page-header">
-                    <h1 className="page-title">GET /contact</h1>
+                    <h1 className="page-title">Contact Me</h1>
                     <p className="page-subtitle">Send a message and connect with me</p>
                 </div>
                 <div className="contact-container">
