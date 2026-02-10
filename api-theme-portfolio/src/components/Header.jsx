@@ -22,11 +22,11 @@ function Header() {
       <nav className="nav">
         {/* Desktop navigation - hidden on mobile */}
         <div className="nav-desktop">
-          <NavLink to="/" className="endpoint">GET /</NavLink>
-          <NavLink to="/about" className="endpoint">GET /about</NavLink>
-          <NavLink to="/projects" className="endpoint">GET /projects</NavLink>
-          <NavLink to="/opensource" className="endpoint">GET /opensource</NavLink>
-          <NavLink to="/contact" className="endpoint">POST /contact</NavLink>
+          <NavLink to="/" className="endpoint">Home</NavLink>
+          <NavLink to="/about" className="endpoint">About</NavLink>
+          <NavLink to="/projects" className="endpoint">Projects</NavLink>
+          <NavLink to="/opensource" className="endpoint">Opensource</NavLink>
+          <NavLink to="/contact" className="endpoint">Contact</NavLink>
         </div>
 
         {/* Mobile hamburger menu button */}
@@ -36,7 +36,7 @@ function Header() {
             onClick={toggleMenu}
             aria-label="Toggle navigation menu"
           >
-            GET /menu
+            menu
           </button>
 
           {/* Mobile navigation dropdown */}
@@ -46,35 +46,35 @@ function Header() {
               className="endpoint" 
               onClick={closeMenu}
             >
-              GET /
+              Home
             </NavLink>
             <NavLink 
               to="/about" 
               className="endpoint" 
               onClick={closeMenu}
             >
-              GET /about
+              About
             </NavLink>
             <NavLink 
               to="/projects" 
               className="endpoint" 
               onClick={closeMenu}
             >
-              GET /projects
+              Projects
             </NavLink>
             <NavLink 
               to="/opensource" 
               className="endpoint" 
               onClick={closeMenu}
             >
-              GET /opensource
+              Opensource
             </NavLink>
             <NavLink 
               to="/contact" 
               className="endpoint" 
               onClick={closeMenu}
             >
-              POST /contact
+              Contact
             </NavLink>
           </div>
         </div>
